@@ -10,21 +10,26 @@ namespace TempApp.Services
 
         public TempProvider()
         {
-            port = new SerialPort("COM3", 9600, Parity.None, 8, StopBits.One);
-            port.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            string[] portNames = SerialPort.GetPortNames();
+            if (portNames.Length > 0)
+            {
+                port = new SerialPort(portNames[0], 9600, Parity.None, 8, StopBits.One);
+                port.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
 
-            try
-            {
-                port.Open();
-            }
-            catch (Exception)
-            {
-                this.currentTemp = -101d;
+                try
+                {
+                    port.Open();
+                }
+                catch (Exception)
+                {
+                    this.currentTemp = -101d;
+                }
             }
         }
         ~TempProvider()
         {
-            port.Close();
+            if(port.IsOpen)
+                port.Close();
         }
 
 
