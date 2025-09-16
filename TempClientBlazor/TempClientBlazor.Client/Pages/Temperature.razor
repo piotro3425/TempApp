@@ -1,0 +1,29 @@
+﻿@page "/temperature"
+@rendermode InteractiveWebAssembly
+@using TempApp.Models
+
+<PageTitle>Temperature</PageTitle>
+
+<h3 style="text-align: center;">Temperature</h3>
+
+<p style="text-align: center; font-size: 200px" role="status">@currentTemperature °C</p>
+
+<button class="btn btn-primary" @onclick="GetTemperatureFromServer">Get Temp</button>
+
+@code {
+   double currentTemperature = 0.0;
+
+   private async void GetTemperatureFromServer(MouseEventArgs args)
+   {
+      try
+      {
+         HttpClient http = new HttpClient();
+         HttpResponseMessage res = await http.GetAsync("https://localhost:7182/api/Temp");
+         res.EnsureSuccessStatusCode();
+         Temp? temp = await res.Content.ReadFromJsonAsync<Temp>();
+         if (temp is not null)
+            currentTemperature = temp.Temperature;
+      }
+      catch (Exception){ }
+   }
+}
