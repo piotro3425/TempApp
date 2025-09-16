@@ -8,13 +8,44 @@
 
 <p style="text-align: center; font-size: 200px" role="status">@currentTemperature °C</p>
 
-<button class="btn btn-primary" @onclick="GetTemperatureFromServer">Get Temp</button>
+<button class="btn btn-primary" @onclick="GetTemperature">Get Temp</button>
+<label>
+   <input type="checkbox" style="margin-left: 10px;" @onchange="CheckedChange"/>
+   Auto Update
+</label>
 
 @code {
    double currentTemperature = 0.0;
+   private System.Timers.Timer? timer;
 
-   private async void GetTemperatureFromServer(MouseEventArgs args)
+   protected override void OnInitialized()
    {
+      timer = new System.Timers.Timer(5000);
+      timer.Elapsed += OnTimerElapsed;
+      timer.Enabled = false;
+   }
+   private async void OnTimerElapsed(object? source, System.Timers.ElapsedEventArgs e)
+   {
+      await GetFromServer();
+      await InvokeAsync(StateHasChanged);
+   }
+
+   private void CheckedChange(ChangeEventArgs e)
+   {
+      if (bool.TryParse(e?.Value?.ToString(), out bool checkedState))
+      {
+         if(checkedState)
+            timer?.Start();
+         else
+            timer?.Stop();
+      }
+   }
+
+    private async void GetTemperature(MouseEventArgs args)
+        => await GetFromServer();
+
+    private async Task GetFromServer()
+    {
       try
       {
          HttpClient http = new HttpClient();
@@ -24,6 +55,6 @@
          if (temp is not null)
             currentTemperature = temp.Temperature;
       }
-      catch (Exception){ }
+      catch (Exception) { }
    }
 }
