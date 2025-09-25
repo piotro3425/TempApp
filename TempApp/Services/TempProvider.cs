@@ -6,7 +6,8 @@ namespace TempApp.Services
     public class TempProvider : ITempProvider
     {
         SerialPort port;
-        private double currentTemp = -100d;
+        private double? currentTemp = null;
+        Random rand = new Random();
 
         public TempProvider()
         {
@@ -22,7 +23,7 @@ namespace TempApp.Services
                 }
                 catch (Exception)
                 {
-                    this.currentTemp = -101d;
+                    this.currentTemp = null;
                 }
             }
         }
@@ -49,6 +50,6 @@ namespace TempApp.Services
             }
         }
 
-        public double GetTemp() => this.currentTemp;
+        public double GetTemp() => this.currentTemp ?? ((double)rand.Next(-2000, -1000)/10);
     }
 }
