@@ -1,25 +1,57 @@
-﻿namespace TempClientMaui
+﻿using System.Net.Http.Json;
+using System.Timers;
+using TempApp.Models;
+
+namespace TempClientMaui
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        System.Timers.Timer timer1;
 
         public MainPage()
         {
             InitializeComponent();
+            this.timer1 = new System.Timers.Timer(2000);
+            this.timer1.Elapsed += TOnTimedEvent;
+            this.timer1.Enabled = false;
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void TOnTimedEvent(object? source, ElapsedEventArgs e)
+            => await GetTimeFromServer();
+
+
+
+        private async Task GetTimeFromServer()
         {
-            count++;
+            try
+            {
+                HttpClient http = new HttpClient();
+                HttpResponseMessage res = await http.GetAsync("https://localhost:7182/api/Temp");
+                res.EnsureSuccessStatusCode();
+                Temp? temp = await res.Content.ReadFromJsonAsync<Temp>();
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+                if (temp is not null)
+                    this.TempDisplay.Dispatcher.Dispatch(() => this.TempDisplay.Text = $"{temp.Temperature} °C");
+            }
+            catch (Exception)
+            {
+                this.TempDisplay.Dispatcher.Dispatch(() => this.TempDisplay.Text = "XXX");
+            }
+        }
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+        private async void OnCounterClicked(object sender, EventArgs e)
+            => await GetTimeFromServer();
+
+        private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            CheckBox? checkBox = sender as CheckBox;
+            if(checkBox is not null)
+            {
+                if (checkBox.IsChecked)
+                    this.timer1.Enabled = true;
+                else
+                    this.timer1.Enabled = false;
+            }
         }
     }
-
 }

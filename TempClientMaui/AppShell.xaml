@@ -8,7 +8,7 @@
     Title="TempClientMaui">
 
     <ShellContent
-        Title="Home"
+        Title="Temp Client Maui Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
