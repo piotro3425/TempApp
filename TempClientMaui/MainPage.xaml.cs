@@ -26,16 +26,20 @@ namespace TempClientMaui
             try
             {
                 HttpClient http = new HttpClient();
-                HttpResponseMessage res = await http.GetAsync("https://localhost:7182/api/Temp");
+                HttpResponseMessage res = await http.GetAsync("http://192.168.100.194:5100/api/Temp");
                 res.EnsureSuccessStatusCode();
                 Temp? temp = await res.Content.ReadFromJsonAsync<Temp>();
 
                 if (temp is not null)
                     this.TempDisplay.Dispatcher.Dispatch(() => this.TempDisplay.Text = $"{temp.Temperature} °C");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                this.TempDisplay.Dispatcher.Dispatch(() => this.TempDisplay.Text = "XXX");
+                this.TempDisplay.Dispatcher.Dispatch(() =>
+                {
+                    this.TempDisplay.Text = ex.Message;
+                    this.TempDisplay.FontSize = 12;
+                });
             }
         }
 

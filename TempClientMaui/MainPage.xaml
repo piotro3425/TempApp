@@ -11,7 +11,7 @@
             <Label
                 Text="0"
                 x:Name="TempDisplay"
-                FontSize="100"
+                FontSize="80"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
             <Grid>
