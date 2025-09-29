@@ -23,7 +23,7 @@ namespace TempClientAvalonia.ViewModels
         public string GetTempText { get; } = "Get Temp";
         public ICommand ExitCommand { get; set; }
         public ICommand GetTempCommand { get; set; }
-        private System.Timers.Timer timer;
+        private Timer timer;
         private bool isTimerOn;
 
         public bool IsTimerOn
