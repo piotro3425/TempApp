@@ -40,6 +40,9 @@
 				Content="{Binding TempDisplayValue}"
 				HorizontalAlignment="Center"
 				VerticalAlignment="Center"/>
+			<Button Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" MinWidth="175" Command="{Binding GetTempCommand}">
+				<Label HorizontalAlignment="Center" Content="{Binding GetTempText}"></Label>
+			</Button>
 		</Grid>
 
 	</StackPanel>
