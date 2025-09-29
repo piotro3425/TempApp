@@ -14,39 +14,35 @@
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-
-	<StackPanel>
-		<Menu>
-			<MenuItem Header="File">
-				<MenuItem Header="Exit" Command="{Binding ExitCommand}"></MenuItem>
-			</MenuItem>
-		</Menu>
-		
-		<Grid VerticalAlignment="Center">
+		<Grid>
 			<Grid.RowDefinitions>
-				<RowDefinition/>
-				<RowDefinition/>
+				<RowDefinition Height="30"/>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="50"/>
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition />
 				<ColumnDefinition />
 				<ColumnDefinition />
 			</Grid.ColumnDefinitions>
+			<Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+				<MenuItem Header="File">
+					<MenuItem Header="Exit" Command="{Binding ExitCommand}"></MenuItem>
+				</MenuItem>
+			</Menu>
 			<Label
-				Grid.Row="0"
+				Grid.Row="1"
 				Grid.Column="0"
 				Grid.ColumnSpan="3"
 				FontSize="200"
 				Content="{Binding TempDisplayValue}"
 				HorizontalAlignment="Center"
 				VerticalAlignment="Center"/>
-			<Button Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" MinWidth="175" Command="{Binding GetTempCommand}">
+			<Button Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" MinWidth="175" Command="{Binding GetTempCommand}">
 				<Label HorizontalAlignment="Center" Content="{Binding GetTempText}"></Label>
 			</Button>
-			<CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding IsTimerOn}">
+			<CheckBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" IsChecked="{Binding IsTimerOn}">
 				<Label>Auto Update</Label>
 			</CheckBox>
 		</Grid>
-
-	</StackPanel>
 </Window>
