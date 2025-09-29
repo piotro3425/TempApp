@@ -3,10 +3,10 @@ using System.Windows.Input;
 
 namespace TempClientAvalonia.Commands
 {
-    internal class RelayCommand(Action<object?> executeMethod, Func<object?, bool> canExecuteMethod) : ICommand
+    internal class RelayCommand(Action<object?> executeMethod, Func<object?, bool>? canExecuteMethod = null) : ICommand
     {
         Action<object?> executeMethod = executeMethod;
-        Func<object?, bool> canExecuteMethod = canExecuteMethod;
+        Func<object?, bool>? canExecuteMethod = canExecuteMethod;
 
         public event EventHandler? CanExecuteChanged;
 

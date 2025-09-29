@@ -30,9 +30,9 @@ namespace TempClientAvalonia.ViewModels
             {
                 if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktopLifetime)
                     desktopLifetime.Shutdown();
-            }, p => true);
+            });
 
-            GetTempCommand = new RelayCommand( async p => await GetTemp(p), p => true);
+            GetTempCommand = new RelayCommand( async p => await GetTemp(p));
         }
 
         private async Task GetTemp(object? obj) => await GetTempFromServer();
