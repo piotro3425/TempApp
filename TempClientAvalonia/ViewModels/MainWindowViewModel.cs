@@ -4,6 +4,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Input;
 using TempApp.Models;
 using TempClientAvalonia.Commands;
@@ -22,8 +23,18 @@ namespace TempClientAvalonia.ViewModels
         public string GetTempText { get; } = "Get Temp";
         public ICommand ExitCommand { get; set; }
         public ICommand GetTempCommand { get; set; }
+        private System.Timers.Timer timer;
+        private bool isTimerOn;
 
-
+        public bool IsTimerOn
+        {
+            get => isTimerOn;
+            set
+            {
+                this.SetProperty(ref isTimerOn, value);
+                this.timer.Enabled = value;
+            }
+        }
         public MainWindowViewModel()
         {
             ExitCommand = new RelayCommand(p =>
@@ -33,7 +44,13 @@ namespace TempClientAvalonia.ViewModels
             });
 
             GetTempCommand = new RelayCommand( async p => await GetTemp(p));
+
+            timer = new System.Timers.Timer(2000);
+            timer.Elapsed += OnTimedEvent;
+            IsTimerOn = false;
         }
+
+        private async void OnTimedEvent(object? sender, ElapsedEventArgs e)=> await GetTempFromServer();
 
         private async Task GetTemp(object? obj) => await GetTempFromServer();
 
