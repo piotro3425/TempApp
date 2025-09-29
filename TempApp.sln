@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempClientBlazor.Client", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempClientMaui", "TempClientMaui\TempClientMaui.csproj", "{1CBEB5B4-1E76-4E35-97B4-8C382A0657FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TempClientAvalonia", "TempClientAvalonia\TempClientAvalonia.csproj", "{CCEB98E4-69BE-4AD7-9348-588F1D8148E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{1CBEB5B4-1E76-4E35-97B4-8C382A0657FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CBEB5B4-1E76-4E35-97B4-8C382A0657FC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1CBEB5B4-1E76-4E35-97B4-8C382A0657FC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{CCEB98E4-69BE-4AD7-9348-588F1D8148E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCEB98E4-69BE-4AD7-9348-588F1D8148E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCEB98E4-69BE-4AD7-9348-588F1D8148E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCEB98E4-69BE-4AD7-9348-588F1D8148E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
