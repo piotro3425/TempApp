@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TempClientWpf"
         mc:Ignorable="d"
-        Title="TempClient Wpf" Height="450" Width="800">
+        Title="TempClient Wpf" Height="500" Width="1000">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -23,22 +23,21 @@
                     Grid.Row="0"
                     Grid.ColumnSpan="3"
                     FontSize="200"
-                    Content="0"></Label>
+                    Content="{Binding TempDisplayValue}"></Label>
             <Button Margin="10"
                     Grid.Row="1"
                     Grid.Column="0"
                     FontSize="18"
-                    Click="Button_Click">
-                Get Temperature
+                    Content="{Binding GetTemperatureValue}"
+                    Command="{Binding GetTempCommand}">
             </Button>
             <CheckBox   Grid.Row="1"
                         Grid.Column="1"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontSize="18"
-                        Checked="CheckBox_Checked"
-                        Unchecked="CheckBox_Unchecked">
-                Auto Update
+                        IsChecked="{Binding IsTimerOn}"
+                        Content="{Binding AutoUpdateValue}">
             </CheckBox>
         </Grid>
     </Grid>
